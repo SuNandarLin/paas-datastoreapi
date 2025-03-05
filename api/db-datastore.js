@@ -32,6 +32,7 @@ module.exports.put = (id, val) => {
 
 module.exports.post = async (id, val) => {
   const [data] = await datastore.get(key(id));
-  const updatedval = (data && data.val ? data.val : 0) + val;
-  return datastore.save({ key: key(id), data: { name: id, val: updatedval } });
+  const currentVal = data && data.val ? Number(data.val) : 0;
+  const updatedVal = currentVal + Number(val);
+  return datastore.save({ key: key(id), data: { name: id, val: updatedVal } });
 };
