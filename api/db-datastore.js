@@ -32,6 +32,6 @@ module.exports.put = (id, val) => {
 
 module.exports.post = async (id, val) => {
   const [data] = await datastore.get(key(id));
-  const updatedval = (data && data.val ? parseInt(data.val) : 0) + val;
+  const updatedval = data && data.val ? parseInt(data.val) : 0 + val;
   return datastore.save({ key: key(id), data: { name: id, updatedval } });
 };
