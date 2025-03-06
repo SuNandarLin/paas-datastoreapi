@@ -19,9 +19,8 @@ api.get("/", async (req, res) => {
 
 api.get("/:id(\\w+)", async (req, res) => {
   try {
-    const temp = await db.get(req.params.id);
-    console.log("whats the return::", temp, "::", typeof temp);
-    res.send(temp.toString());
+    const response = await db.get(req.params.id);
+    res.send(response.toString());
   } catch (e) {
     console.error(e);
     res.sendStatus(500);
@@ -30,8 +29,8 @@ api.get("/:id(\\w+)", async (req, res) => {
 
 api.put("/:id(\\w+)", bodyParser.text(), async (req, res) => {
   try {
-    await db.put(req.params.id, req.body);
-    res.sendStatus(204);
+    const response = await db.put(req.params.id, req.body);
+    res.send(response.toString());
   } catch (e) {
     console.error(e);
     res.sendStatus(500);
@@ -40,7 +39,17 @@ api.put("/:id(\\w+)", bodyParser.text(), async (req, res) => {
 
 api.post("/:id(\\w+)", bodyParser.text(), async (req, res) => {
   try {
-    await db.post(req.params.id, req.body);
+    const response = await db.post(req.params.id, req.body);
+    res.send(response.toString());
+  } catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
+
+api.delete("/:id(\\w+)", async (req, res) => {
+  try {
+    await db.delete(req.params.id);
     res.sendStatus(204);
   } catch (e) {
     console.error(e);

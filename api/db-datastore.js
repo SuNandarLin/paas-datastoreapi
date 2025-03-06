@@ -26,16 +26,19 @@ module.exports.get = async (id) => {
   return 0;
 };
 
-module.exports.put = (id, val) => {
-  return datastore.save({ key: key(id), data: { name: id, val } });
+module.exports.put = async (id, val) => {
+  await datastore.save({ key: key(id), data: { name: id, val } });
+  return val;
 };
 
 module.exports.post = async (id, val) => {
   const [data] = await datastore.get(key(id));
   const currentVal = data && data.val ? Number(data.val) : 0;
   const updatedVal = currentVal + Number(val);
-  console.log("Existing::", currentVal);
-  console.log("Value to add::", Number(val));
-  console.log("After Sum::", updatedVal);
-  return datastore.save({ key: key(id), data: { name: id, val: updatedVal } });
+  await datastore.save({ key: key(id), data: { name: id, val: updatedVal } });
+  return updatedVal;
+};
+
+module.exports.delete = async (id) => {
+  await datastore.delete(key(id));
 };
