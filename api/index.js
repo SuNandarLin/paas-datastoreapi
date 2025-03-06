@@ -21,7 +21,7 @@ api.get("/:id(\\w+)", async (req, res) => {
   try {
     const temp = await db.get(req.params.id);
     console.log("whats the return::", temp, "::", typeof temp);
-    res.send(temp);
+    res.sendStatus(temp);
   } catch (e) {
     console.error(e);
     res.sendStatus(500);
