@@ -34,5 +34,8 @@ module.exports.post = async (id, val) => {
   const [data] = await datastore.get(key(id));
   const currentVal = data && data.val ? Number(data.val) : 0;
   const updatedVal = currentVal + Number(val);
+  console.log("Existing::", currentVal);
+  console.log("Value to add::", Number(val));
+  console.log("After Sum::", updatedVal);
   return datastore.save({ key: key(id), data: { name: id, val: updatedVal } });
 };
