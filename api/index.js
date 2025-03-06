@@ -19,7 +19,9 @@ api.get("/", async (req, res) => {
 
 api.get("/:id(\\w+)", async (req, res) => {
   try {
-    res.send(await db.get(req.params.id));
+    const temp = await db.get(req.params.id);
+    console.log("whats the return::", temp, "::", typeof temp);
+    res.send(temp);
   } catch (e) {
     console.error(e);
     res.sendStatus(500);
